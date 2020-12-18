@@ -6,6 +6,10 @@ node('master') {
                     echo "Building..."
                     def bc = openshift.selector('bc', 'news-api-client')
                     def buildSelector = bc.startBuild()
+
+                    timeout(10) {
+						buildSelector.logs('-f')
+					}
             }
         }
     }
